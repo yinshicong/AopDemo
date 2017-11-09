@@ -40,7 +40,7 @@ public class Main {
         CakeImpl cake = (CakeImpl)applicationContext.getBean("cakeImpl");
         cake.cut();
 
-        //from dev-2.0
+        //from test-1.0
 
     }
 }
