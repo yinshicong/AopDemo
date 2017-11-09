@@ -41,6 +41,7 @@ public class Main {
         cake.cut();
 
         //from master-2.0
+        //from dev-2.0
 
     }
 }
