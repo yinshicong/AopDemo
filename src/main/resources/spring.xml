@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:component-scan base-package="demo.*" />
+
+    <!--默认为false,面向接口代理,设为true之后用aspectj的CGLib基于类的代理-->
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+
+    <!--aop配置顶点节点-->
+    <aop:config>
+        <!--    切点，这里切点定义的无论是接口（Cake）还是实现类（CakeImpl）都没有太大的关系，因为是根据接口动态生成实现类的。因此只要代码中用接口去接受动态实现类就可以了。  -->
+        <aop:pointcut id="ckPoint" expression="execution(* demo.entity.Cake.*(..))" />
+        <!--    切面  -->
+        <aop:aspect id="ckAspect" ref="ckAspect">
+            <!--    <aop:类型通知 对应了五种通知类型，method指向切面的方法   -->
+            <aop:before method="before" pointcut-ref="ckPoint"/>
+            <aop:after method="after" pointcut-ref="ckPoint"/>
+            <aop:around method="around" pointcut-ref="ckPoint"/>
+            <aop:after-throwing method="throwEx" pointcut-ref="ckPoint"/>
+            <aop:after-returning method="afterReturning" pointcut-ref="ckPoint"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
